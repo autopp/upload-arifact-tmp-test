@@ -44,6 +44,7 @@ jobs:
         tar acf /tmp/artifact/results.tar.gz /tmp/results
     - name: Make Artifact
       if: ${{ runner.os == 'Windows' }}
+      shell: powershell
       run: |
         mkdir /tmp/artifact
         mkdir /tmp/results
