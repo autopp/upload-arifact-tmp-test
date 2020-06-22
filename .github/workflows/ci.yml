@@ -40,7 +40,7 @@ jobs:
         # for d in /tmp/results/*; do
         #   echo contents: $d
         # done
-        tar acf /tmp/artifact/results.tar.xz /tmp/results
+        tar acf /tmp/artifact/results.tar.gz /tmp/results
 
     - uses: actions/upload-artifact@v2
       with:
