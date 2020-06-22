@@ -6,7 +6,7 @@ jobs:
   upload-from-tmp:
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [macos-latest, windows-latest]
       fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:
@@ -27,7 +27,7 @@ jobs:
   upload-from-not-tmp:
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [macos-latest, windows-latest]
       fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:
@@ -50,7 +50,7 @@ jobs:
         echo Hello ${{ matrix.os }} > /tmp/results/hello.txt
         echo Goodbye ${{ matrix.os }} > /tmp/results/goodbye.txt
         cd /tmp
-        Get-Child -Path results | foreach { echo $_.BaseName }
+        ls -Path results | foreach { echo $_.BaseName }
         tar acf /tmp/artifact/results.tar.gz results
     - uses: actions/upload-artifact@v2
       with:
