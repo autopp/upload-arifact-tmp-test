@@ -18,12 +18,12 @@ jobs:
         # for d in /tmp/results/*;  do
         #   echo contents: $d
         # done
-        tar acf /tmp/results.tar.xz /tmp/results
+        tar acf /tmp/results.tar.gz /tmp/results
 
     - uses: actions/upload-artifact@v2
       with:
         name: results-tmp-${{ matrix.os }}
-        path: /tmp/results.tar.xz
+        path: /tmp/results.tar.gz
   upload-from-not-tmp:
     strategy:
       matrix:
@@ -37,13 +37,13 @@ jobs:
         mkdir /tmp/results
         echo Hello ${{ matrix.os }} > /tmp/results/hello.txt
         echo Goodbye ${{ matrix.os }} > /tmp/results/goodbye.txt
-        for d in /tmp/results/*;  do
-          echo contents: $d
-        done
+        # for d in /tmp/results/*; do
+        #   echo contents: $d
+        # done
         tar acf /tmp/artifact/results.tar.xz /tmp/results
 
     - uses: actions/upload-artifact@v2
       with:
         name: results-not-tmp-${{ matrix.os }}
-        path: /tmp/artifact/results.tar.xz
+        path: /tmp/artifact/results.tar.gz
 
