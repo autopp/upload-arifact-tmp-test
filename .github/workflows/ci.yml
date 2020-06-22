@@ -31,19 +31,30 @@ jobs:
       fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:
-    - name: Make Artifact
+    - name: Make Artifact for not windows
+      if: ${{ runner.os != Windows }}
       run: |
         mkdir /tmp/artifact
         mkdir /tmp/results
         echo Hello ${{ matrix.os }} > /tmp/results/hello.txt
         echo Goodbye ${{ matrix.os }} > /tmp/results/goodbye.txt
-        # for d in /tmp/results/*; do
-        #   echo contents: $d
-        # done
+        for d in /tmp/results/*; do
+          echo contents: $d
+        done
         tar acf /tmp/artifact/results.tar.gz /tmp/results
-
+    - name: Make Artifact for windows
+      if: ${{ runner.os == Windows }}
+      run: |
+        mkdir /tmp/artifact
+        mkdir /tmp/results
+        echo Hello ${{ matrix.os }} > /tmp/results/hello.txt
+        echo Goodbye ${{ matrix.os }} > /tmp/results/goodbye.txt
+        for d in /tmp/results/*; do
+          echo contents: $d
+        done
+        ls /tmp/results | foreach { echo $_.BaseName }
+        tar acf /tmp/artifact/results.tar.gz /tmp/results
     - uses: actions/upload-artifact@v2
       with:
         name: results-not-tmp-${{ matrix.os }}
         path: /tmp/artifact/results.tar.gz
-
