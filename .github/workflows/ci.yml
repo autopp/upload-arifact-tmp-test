@@ -50,9 +50,8 @@ jobs:
         echo Hello ${{ matrix.os }} > /tmp/results/hello.txt
         echo Goodbye ${{ matrix.os }} > /tmp/results/goodbye.txt
         cd /tmp/results
-        ls -Name | foreach { echo $_ }
-        cd /tmp
-        # ls -Path results | foreach { echo $_.BaseName }
+        $items = ls -Name
+        foreach ($x in $items) { echo $x }
         tar acf /tmp/artifact/results.tar.gz results
     - uses: actions/upload-artifact@v2
       with:
