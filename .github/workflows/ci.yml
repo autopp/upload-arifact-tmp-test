@@ -1,0 +1,33 @@
+name: CI
+
+on: [push]
+
+jobs:
+  upload-from-tmp:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+    - name: Make Artifact
+      run: |
+        echo Hello ${{ matrix.os }} > /tmp/hello.txt
+    - uses: actions/upload-artifact@v2
+      with:
+        name: hello
+        path: /tmp/hello.txt
+  upload-from-not-tmp:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+    - name: Make Artifact
+      run: |
+        mkdir /tmp/artifact
+        echo Hello ${{ matrix.os }} > /tmp/artifact/hello.txt
+    - uses: actions/upload-artifact@v2
+      with:
+        name: hello
+        path: /tmp/artifact/hello.txt
+
