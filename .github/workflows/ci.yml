@@ -31,7 +31,7 @@ jobs:
       fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:
-    - name: Make Artifact for not windows
+    - name: Make Artifact
       if: ${{ runner.os != 'Windows' }}
       run: |
         mkdir /tmp/artifact
@@ -42,7 +42,7 @@ jobs:
           echo contents: $d
         done
         tar acf /tmp/artifact/results.tar.gz /tmp/results
-    - name: Make Artifact for windows
+    - name: Make Artifact
       if: ${{ runner.os == 'Windows' }}
       run: |
         mkdir /tmp/artifact
