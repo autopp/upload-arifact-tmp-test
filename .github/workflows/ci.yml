@@ -49,7 +49,7 @@ jobs:
         mkdir /tmp/results
         echo Hello ${{ matrix.os }} > /tmp/results/hello.txt
         echo Goodbye ${{ matrix.os }} > /tmp/results/goodbye.txt
-        ls /tmp/results | foreach { echo $_.BaseName }
+        ls /tmp/results/* | foreach { echo $_.BaseName }
         tar acf /tmp/artifact/results.tar.gz /tmp/results
     - uses: actions/upload-artifact@v2
       with:
