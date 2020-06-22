@@ -51,10 +51,10 @@ jobs:
         echo Goodbye ${{ matrix.os }} > /tmp/results/goodbye.txt
         cd /tmp/results
         ls -Name | foreach {
-          echo $x
+          echo $_
         }
         ls -Name "goodbye.*" | foreach {
-          echo $x
+          echo $_
         }
         cd /tmp
         tar acf /tmp/artifact/results.tar.gz results
