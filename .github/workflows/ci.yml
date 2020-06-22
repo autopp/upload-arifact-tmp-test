@@ -11,11 +11,18 @@ jobs:
     steps:
     - name: Make Artifact
       run: |
-        echo Hello ${{ matrix.os }} > /tmp/hello-${{ matrix.os }}.txt
+        mkdir /tmp/results
+        echo Hello ${{ matrix.os }} > /tmp/results/hello.txt
+        echo Goodbye ${{ matrix.os }} > /tmp/results/goodbye.txt
+        for d in /tmp/results/*;  do
+          echo contents: $d
+        done
+        tar acf /tmp/results.tar.xz /tmp/results
+
     - uses: actions/upload-artifact@v2
       with:
-        name: hello-from-tmp-${{ matrix.os }}
-        path: /tmp/hello-${{ matrix.os }}.txt
+        name: results-tmp-${{ matrix.os }}
+        path: /tmp/results.tar.xz
   upload-from-not-tmp:
     strategy:
       matrix:
@@ -25,9 +32,16 @@ jobs:
     - name: Make Artifact
       run: |
         mkdir /tmp/artifact
-        echo Hello ${{ matrix.os }} > /tmp/artifact/hello-${{ matrix.os }}.txt
+        mkdir /tmp/results
+        echo Hello ${{ matrix.os }} > /tmp/results/hello.txt
+        echo Goodbye ${{ matrix.os }} > /tmp/results/goodbye.txt
+        for d in /tmp/results/*;  do
+          echo contents: $d
+        done
+        tar acf /tmp/artifact/results.tar.xz /tmp/results
+
     - uses: actions/upload-artifact@v2
       with:
-        name: hello-from-not-tmp-${{ matrix.os }}
-        path: /tmp/artifact/hello-${{ matrix.os }}.txt
+        name: results-not-tmp-${{ matrix.os }}
+        path: /tmp/artifact/results.tar.xz
 
