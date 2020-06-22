@@ -14,7 +14,7 @@ jobs:
         echo Hello ${{ matrix.os }} > /tmp/hello-${{ matrix.os }}.txt
     - uses: actions/upload-artifact@v2
       with:
-        name: hello
+        name: hello-from-tmp-${{ matrix.os }}
         path: /tmp/hello-${{ matrix.os }}.txt
   upload-from-not-tmp:
     strategy:
@@ -28,6 +28,6 @@ jobs:
         echo Hello ${{ matrix.os }} > /tmp/artifact/hello-${{ matrix.os }}.txt
     - uses: actions/upload-artifact@v2
       with:
-        name: hello
+        name: hello-from-not-tmp-${{ matrix.os }}
         path: /tmp/artifact/hello-${{ matrix.os }}.txt
 
